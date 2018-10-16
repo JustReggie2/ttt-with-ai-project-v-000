@@ -10,6 +10,7 @@ module Players
     def move(board)
       @board = board
       case
+
       # when first_move? == true
       #   input = 5
     # when counter_attack != nil
@@ -18,6 +19,12 @@ module Players
         input = 5
       when corner
         input = corner + 1
+
+      when first_move?
+        input = 5
+      when counter_attack != nil
+        input = block_move
+
       else
         until !board.taken?(input)
           input = (1..9).to_a.sample
@@ -31,6 +38,7 @@ module Players
     end
 
     def counter_attack # when player has 2 of 3 win combination, move to block
+
 # binding.pry
       block_now = WIN_COMBINATIONS.detect do |win_com| #win_com is an array of indicies... make an array. iterate over win_com and .collect to be able to compare arrays
         # binding.pry
@@ -44,6 +52,17 @@ module Players
     end
 
     def center # if empty, or first_move take center square unless counter_attack is needed
+
+      block_now = WIN_COMBINATIONS.detect do |win_com|
+        board.cells[win_com[0..2]] == (["X","X"," "] || ["X"," ","X"] || [" ","X","X"]) || board.cells[win_com[0..2]] == (["O","O"," "] || ["O"," ","O"] || [" ","O","O"])
+      end
+      if block_now == true
+        block_move = block_now.detect {|w_c_p| board.cells[w_c_p] == " "} + 1
+      end
+    end
+
+    def center? # if empty, or first_move take center square unless counter_attack is needed
+
       board.cells[4] == " " || first_move?
     end
 
@@ -51,8 +70,11 @@ module Players
     end
 
     def corner # if center = false, move to any corner space
+
       corners = [0, 2, 6, 8]
       corners.detect {|corner| board.cells[corner] == " "}
+
+
     end
 
 
