@@ -11,7 +11,7 @@ module Players
 
     def move(board)
       @board = board
-  
+
       case
         when winning_move != nil
           input = winning_move + 1
@@ -28,7 +28,7 @@ module Players
             input = (1..9).to_a.sample
           end
       end
-      
+
       input.to_s
     end
     def other
@@ -74,3 +74,4 @@ module Players
       end
     end
   end
+end
