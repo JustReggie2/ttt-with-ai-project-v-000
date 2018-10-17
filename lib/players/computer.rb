@@ -36,8 +36,8 @@ module Players
     end
 
     def winning_move
-      winning_row = WIN_COMBINATIONS.find do |win_com|
-        (board.cells[[0]] == token && board.cells[win_com[1]] == token && board.cells[win_com[2]] == " ") || (board.cells[win_com[2]] == token && board.cells[win_com[1]] == token && board.cells[win_com[0]] == " ") || (board.cells[win_com[0]] == token && board.cells[win_com[2]] == token && board.cells[win_com[1]] == " ")
+      winning_row = WIN_COMBINATIONS.find do |combo|
+        (board.cells[combo[0]] == token && board.cells[combo[1]] == token && board.cells[combo[2]] == " ") || (board.cells[combo[2]] == token && board.cells[combo[1]] == token && board.cells[combo[0]] == " ") || (board.cells[combo[0]] == token && board.cells[combo[2]] == token && board.cells[combo[1]] == " ")
       end
       if winning_row != nil
         winning_cell = winning_row.find {|cell| board.cells[cell] == " "}
@@ -45,8 +45,8 @@ module Players
     end
 
     def blocking_move
-      winning_row = WIN_COMBINATIONS.find do |win_com|
-        (board.cells[win_com[0]] == other && board.cells[win_com[1]] == other && board.cells[win_com[2]] == " ") || (board.cells[win_com[1]] == other && board.cells[win_com[2]] == other && board.cells[win_com[0]] == " ") || (board.cells[win_com[2]] == other && board.cells[win_com[0]] == other && board.cells[win_com[1]] == " ")
+      winning_row = WIN_COMBINATIONS.find do |combo|
+        (board.cells[combo[0]] == other && board.cells[combo[1]] == other && board.cells[combo[2]] == " ") || (board.cells[combo[1]] == other && board.cells[combo[2]] == other && board.cells[combo[0]] == " ") || (board.cells[combo[2]] == other && board.cells[combo[0]] == other && board.cells[combo[1]] == " ")
       end
       if winning_row != nil
         winning_cell = winning_row.find {|cell| board.cells[cell] == " "}
